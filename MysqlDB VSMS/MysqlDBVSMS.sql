@@ -387,14 +387,42 @@ INSERT INTO `customer_feedback` (`id`, `work_order_id`, `customer_id`, `mechanic
 -- --------------------------------------------------------
 
 -- Table structure for table `service_reminders`
+
 CREATE TABLE `service_reminders` (
-  `id` int(30) NOT NULL,
-  `vehicle_id` int(30) NOT NULL,
-  `customer_id` int(30) NOT NULL,
-  `service_type` varchar(200) NOT NULL,
-  `due_date` date NOT NULL,
-  `due_mileage` int(10) DEFAULT NULL,
-  `reminder_sent` tinyint(1) DEFAULT 0,
-  `reminder_date` datetime DEFAULT NULL,
-  `reminder_method` enum('SMS','Email','Phone','App Notification') DEFAULT NULL,
-  `status` enum('Pending','Sent','Scheduled','Completed','Cancelled') );
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` INT(11) NOT NULL,
+  `customer_id` INT(11) NOT NULL,
+  `service_type` VARCHAR(200) NOT NULL,
+  `due_date` DATE NOT NULL,
+  `due_mileage` INT(10) DEFAULT NULL,
+  `reminder_sent` TINYINT(1) DEFAULT 0,
+  `reminder_date` DATETIME DEFAULT NULL,
+  `reminder_method` ENUM('SMS','Email','Phone','App Notification') DEFAULT NULL,
+  `status` ENUM('Pending','Sent','Scheduled','Completed','Cancelled') DEFAULT 'Pending',
+  `notes` TEXT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO service_reminders (
+  vehicle_id,
+  customer_id,
+  service_type,
+  due_date,
+  due_mileage,
+  reminder_sent,
+  reminder_date,
+  reminder_method,
+  status,
+  notes
+) VALUES (
+  101,                    -- vehicle_id
+  501,                    -- customer_id
+  'Engine Oil Change',    -- service_type
+  '2025-06-20',           -- due_date
+  15000,                  -- due_mileage
+  0,                      -- reminder_sent
+  NULL,                   -- reminder_date
+  'SMS',                  -- reminder_method
+  'Pending',              -- status
+  'Customer prefers morning appointments.' -- notes
+);
